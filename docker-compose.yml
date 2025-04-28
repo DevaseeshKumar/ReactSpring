@@ -1,0 +1,47 @@
+services:
+  backend:
+    build:
+      context: ./SpringBootRestAPIJPAProject
+    ports:
+      - "2013:2013"
+    depends_on:
+      - mysql_reactspring
+    environment:
+      - SPRING_APPLICATION_NAME=SpringBootRestAPIJPAProject
+      - SERVER_PORT=2013
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_reactspring:3306/springbootrestjpa11
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Devaseesh*2005
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      - SPRING_JPA_SHOW-SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      - SPRING_MVC_VIEW_PREFIX=/
+      - SPRING_MVC_VIEW_SUFFIX=.jsp
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./student-frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+
+  mysql_reactspring:
+    image: mysql:8.0
+    container_name: mysql_reactspring
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Devaseesh*2005
+      MYSQL_DATABASE: springbootrestjpa11
+    volumes:
+      - mysql_reactspring_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_reactspring_data:

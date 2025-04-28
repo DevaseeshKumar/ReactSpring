@@ -1,0 +1,28 @@
+# === Global ===
+.DS_Store
+*.log
+*.env
+
+# === Java / Spring Boot ===
+target/
+*.class
+*.jar
+*.war
+*.iml
+.idea/
+.settings/
+.classpath
+.project
+.mvn/wrapper/maven-wrapper.jar
+
+# === Node.js / React ===
+node_modules/
+build/
+dist/
+.env
+
+# === Docker (optional) ===
+docker-compose.override.yml
+
+# === VS Code ===
+.vscode/
